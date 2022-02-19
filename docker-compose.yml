@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  interface:
+    container_name: interface
+    build: '.'
+    volumes:
+      - .:/home/node/web
+      - /home/node/web/node_modules
+    networks:
+      - app-connect
+    ports:
+      - '3000:3000'
+
+networks:
+  app-connect:
+    driver: bridge
