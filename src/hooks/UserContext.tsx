@@ -6,7 +6,11 @@ interface IUserInfo {
   admin: boolean
 }
 
-const UserContext = createContext({})
+const UserContext = createContext({
+  putUserData: (userInfo: IUserInfo) => {},
+  logout: () => {},
+  userData: {}
+})
 
 export const UserProvider = ({ children }: NodeModule) => {
   const [userData, setUserData] = useState({})
@@ -38,4 +42,14 @@ export const UserProvider = ({ children }: NodeModule) => {
       {children}
     </UserContext.Provider>
   )
+}
+
+export const useUser = () => {
+  const context = useContext(UserContext)
+
+  if (!context) {
+    throw new Error('useUser must be used with UserContext')
+  }
+
+  return context
 }
